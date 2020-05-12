@@ -1,6 +1,6 @@
 
 import Taro, { Component, Config } from '@tarojs/taro'
-import { View } from '@tarojs/components'
+import {Image, View} from '@tarojs/components'
 import { connect } from '@tarojs/redux'
 // import Api from '../../utils/request'
 // import Tips from '../../utils/tips'
@@ -32,12 +32,18 @@ class Mine extends Component<MineProps,MineState > {
 
     this.getMyInfo()
   }
+  goToDetail() {
+    Taro.navigateTo({
+      url: `/pages/mine-detail/index`
+    });
+  }
 
   render() {
     const { myInfo } = this.props;
     return (
 
-      <View className='mine-wrap'>
+      <View className='mine-wrap' onClick={this.goToDetail.bind(this)}>
+        <Image className='user-logo' mode='scaleToFill' src={myInfo.userLogo} />
         {myInfo.cardName}
       </View>
     )

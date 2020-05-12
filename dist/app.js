@@ -575,7 +575,7 @@ var _App = function (_BaseComponent) {
     var _this = _possibleConstructorReturn(this, (_App.__proto__ || Object.getPrototypeOf(_App)).apply(this, arguments));
 
     _this.config = {
-      pages: ['pages/mine/mine', 'pages/index/index'],
+      pages: ['pages/mine/mine', 'pages/index/index', 'pages/mine-detail/index'],
       window: {
         backgroundTextStyle: 'light',
         navigationBarBackgroundColor: '#fff',
@@ -6916,10 +6916,15 @@ var _model3 = __webpack_require__(/*! ../pages/mine/model */ "./src/pages/mine/m
 
 var _model4 = _interopRequireDefault(_model3);
 
+var _model5 = __webpack_require__(/*! ../pages/mine-detail/model */ "./src/pages/mine-detail/model.ts");
+
+var _model6 = _interopRequireDefault(_model5);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // 这里记得export的是数组，不是对象
-exports.default = [_common2.default, _model2.default, _model4.default]; // index 页面的model
+// index 页面的model
+exports.default = [_common2.default, _model2.default, _model4.default, _model6.default];
 
 /***/ }),
 
@@ -7066,6 +7071,91 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 
 var getLists = exports.getLists = function getLists(data) {
   return _request2.default.getLists(data);
+};
+
+/***/ }),
+
+/***/ "./src/pages/mine-detail/model.ts":
+/*!****************************************!*\
+  !*** ./src/pages/mine-detail/model.ts ***!
+  \****************************************/
+/*! no static exports found */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+  value: true
+});
+
+var _regenerator = __webpack_require__(/*! babel-runtime/regenerator */ "./node_modules/babel-runtime/regenerator/index.js");
+
+var _regenerator2 = _interopRequireDefault(_regenerator);
+
+var _extends = Object.assign || function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; };
+
+var _service = __webpack_require__(/*! ../mine/service */ "./src/pages/mine/service.ts");
+
+var mineApi = _interopRequireWildcard(_service);
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) newObj[key] = obj[key]; } } newObj.default = obj; return newObj; } }
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+exports.default = {
+  namespace: 'mine-detail',
+  state: {
+    myInfo: {}
+  },
+  effects: {
+    getInfo: /*#__PURE__*/_regenerator2.default.mark(function getInfo(_, _ref) {
+      var call = _ref.call,
+          put = _ref.put;
+
+      var _ref2, error, data;
+
+      return _regenerator2.default.wrap(function getInfo$(_context) {
+        while (1) {
+          switch (_context.prev = _context.next) {
+            case 0:
+              _context.next = 2;
+              return call(mineApi.getInfo, {});
+
+            case 2:
+              _ref2 = _context.sent;
+              error = _ref2.error;
+              data = _ref2.data;
+
+              if (error) {
+                _context.next = 9;
+                break;
+              }
+
+              console.log('getInfo result:', data);
+              _context.next = 9;
+              return put({
+                type: 'updateMyInfo',
+                payload: {
+                  myInfo: data
+                }
+              });
+
+            case 9:
+            case 'end':
+              return _context.stop();
+          }
+        }
+      }, getInfo, this);
+    })
+  },
+  reducers: {
+    updateMyInfo: function updateMyInfo(state, _ref3) {
+      var data = _ref3.payload;
+
+      return _extends({}, state, data);
+    }
+  }
 };
 
 /***/ }),

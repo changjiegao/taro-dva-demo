@@ -1,3 +1,4 @@
 <block wx:if="{{$taroCompReady}}">
-    <view class="mine-wrap">{{myInfo.cardName}}</view>
+    <view class="mine-wrap" bindtap="goToDetail" data-e-tap-so="this">
+        <image class="user-logo" mode="scaleToFill" src="{{myInfo.userLogo}}"></image>{{myInfo.cardName}}</view>
 </block>
