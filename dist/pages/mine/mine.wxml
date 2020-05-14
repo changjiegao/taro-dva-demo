@@ -1,4 +1,20 @@
 <block wx:if="{{$taroCompReady}}">
-    <view class="mine-wrap" bindtap="goToDetail" data-e-tap-so="this">
-        <image class="user-logo" mode="scaleToFill" src="{{myInfo.userLogo}}"></image>{{myInfo.cardName}}</view>
+    <view>
+        <view class="mine-wrap" bindtap="goToDetail" data-e-tap-so="this">
+            <image class="user-logo" mode="scaleToFill" src="{{myInfo.userLogo}}"></image>{{myInfo.cardName}}</view>
+        <button bindtap="treatAsSlaveDevice">作为从设备</button>
+        <button bindtap="testBluetooth">开启蓝牙模块，开始搜索</button>
+        <button bindtap="closeConnect">关闭蓝牙</button>
+        <button bindtap="clearDevice">清除数据</button>
+        <view>
+            <block wx:if="{{$taroCompReady}}" wx:for="{{loopArray103}}" wx:for-item="item" wx:for-index="index">
+                <block wx:if="{{item.$loopState__temp2}}">
+                    <view style="color: red">找到设备：第{{index}}个，deviceId为： {{item.$original.deviceId}}、设备名：{{item.$original.name}}、localName: {{item.$original.localName}}</view>
+                </block>
+                <block wx:else>
+                    <view>设备{{index}}: {{item.$original.deviceId}}、{{item.$original.name}}、localName: {{item.$original.localName}}</view>
+                </block>
+            </block>
+        </view>
+    </view>
 </block>

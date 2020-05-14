@@ -7214,7 +7214,8 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { de
 exports.default = {
   namespace: 'mine',
   state: {
-    myInfo: {}
+    myInfo: {},
+    deviceName: ''
   },
   effects: {
     getInfo: /*#__PURE__*/_regenerator2.default.mark(function getInfo(_, _ref) {
