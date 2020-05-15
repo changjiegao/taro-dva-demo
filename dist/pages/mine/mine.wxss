@@ -1,7 +1,0 @@
-mine-wrap {
-  width: 100%;
-  min-height: 100vh; }
-.user-logo {
-  width: 100rpx;
-  height: 100rpx;
-  border-radius: 50%; }

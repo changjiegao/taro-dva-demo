@@ -1,2 +1,8 @@
 node_modules
+#忽略上传的文件夹
+# **/.vscode/**
+**/.idea/**
 **/dist/**
+
+#IDE
+package-lock.json
