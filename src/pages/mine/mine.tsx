@@ -60,6 +60,27 @@ class Mine extends Component<MineProps,MineState > {
     } else {
     }
   }
+  treatAsSlaveDevice() {
+    var that = this;
+    //初始化蓝牙
+    if (wx.openBluetoothAdapter) {
+      wx.openBluetoothAdapter({
+        mode: 'peripheral',
+        success: function(res) {
+          console.log('openBluetoothAdapter peripheral success', res);
+          /* 获取本机的蓝牙状态 */
+          // setTimeout(() => {
+          // that.getBluetoothAdapterState()
+          // }, 1000)
+
+        },
+        fail: function(err) {
+          console.log('openBluetoothAdapter fail', err);
+        }
+      })
+    } else {
+    }
+  }
 
   /**
    * 检测本机蓝牙是否可用
@@ -107,31 +128,18 @@ class Mine extends Component<MineProps,MineState > {
     var that= this;
     Taro.onBluetoothDeviceFound(function (res) {
       console.log('onBluetoothDeviceFound res', res);
-      // if (!res.devices.name) {
-      //   return
-      // }
-      var devices = that.state.devices;
-      that.setState({
-        devices: devices.concat(res.devices)
+      res.devices.forEach(item => {
+        if (item.name || item.localName) {
+          var devices = that.state.devices;
+          that.setState({
+            devices: devices.concat(item)
+          })
+        }
       })
       // console.log('new device list has founded')
       // console.dir(devices)
       // console.log(ab2hex(devices[0].advertisData))
     })
-    // Taro.onBluetoothDeviceFound((res) => {
-    //   console.log('onBluetoothDeviceFound res', res);
-    //   that.setState({
-    //     devices: res.devices
-    //   })
-    //   // res.devices.forEach(device => {
-    //   //   if (!device.name && !device.localName) {
-    //   //     return
-    //   //   }
-    //   //   console.log('onBluetoothDeviceFound', device);
-    //   //
-    //   //   // this.devices.push(device);
-    //   // })
-    // })
   }
 
   /**
@@ -386,9 +394,7 @@ class Mine extends Component<MineProps,MineState > {
       devices: []
     })
   }
-  treatAsSlaveDevice() {
 
-  }
 
 
   goToDetail() {
@@ -415,7 +421,7 @@ class Mine extends Component<MineProps,MineState > {
               if (new RegExp("^E0.*$").test(item.deviceId)) {
                 return <View style={'color: red'}>找到设备：第{index}个，deviceId为： {item.deviceId}、设备名：{item.name}、localName: {item.localName} </View>
               }
-              return <View>设备{index}: {item.deviceId}、{item.name}、localName: {item.localName}</View>
+              return <View>设备{index}: \n\rdeviceId: {item.deviceId}、name: \n\r{item.name}、\n\rlocalName: {item.localName}</View>
             })
           )}
         </View>

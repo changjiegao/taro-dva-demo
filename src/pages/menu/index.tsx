@@ -4,8 +4,8 @@ import { View } from '@tarojs/components'
 // import { connect } from '@tarojs/redux'
 // import Api from '../../utils/request'
 // import Tips from '../../utils/tips'
-import { MenuProps, MenuState } from './menu.interface'
-import './menu.scss'
+import { MenuProps, MenuState } from './index.interface'
+import './index.scss'
 // import { } from '../../components'
 
 // @connect(({ menu }) => ({

@@ -61,7 +61,7 @@ var Mine = (_temp2 = _class = function (_BaseComponent) {
       args[_key] = arguments[_key];
     }
 
-    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Mine.__proto__ || Object.getPrototypeOf(Mine)).call.apply(_ref, [this].concat(args))), _this), _this.$usedState = ["loopArray103", "myInfo", "deviceName", "deviceId", "devices", "connectedDeviceId", "dispatch", "__fn_call"], _this.config = {
+    return _ret = (_temp = (_this = _possibleConstructorReturn(this, (_ref = Mine.__proto__ || Object.getPrototypeOf(Mine)).call.apply(_ref, [this].concat(args))), _this), _this.$usedState = ["loopArray123", "myInfo", "deviceName", "deviceId", "devices", "connectedDeviceId", "dispatch", "__fn_call"], _this.config = {
       navigationBarTitleText: '我的'
     }, _this.customComponents = [], _temp), _possibleConstructorReturn(_this, _ret);
   }
@@ -134,6 +134,27 @@ var Mine = (_temp2 = _class = function (_BaseComponent) {
         });
       }
     }
+  }, {
+    key: "treatAsSlaveDevice",
+    value: function treatAsSlaveDevice() {
+      var that = this;
+      //初始化蓝牙
+      if (wx.openBluetoothAdapter) {
+        wx.openBluetoothAdapter({
+          mode: 'peripheral',
+          success: function success(res) {
+            console.log('openBluetoothAdapter peripheral success', res);
+            /* 获取本机的蓝牙状态 */
+            // setTimeout(() => {
+            // that.getBluetoothAdapterState()
+            // }, 1000)
+          },
+          fail: function fail(err) {
+            console.log('openBluetoothAdapter fail', err);
+          }
+        });
+      }
+    }
     /**
      * 检测本机蓝牙是否可用
      */
@@ -186,31 +207,18 @@ var Mine = (_temp2 = _class = function (_BaseComponent) {
       var that = this;
       _taroWeapp2.default.onBluetoothDeviceFound(function (res) {
         console.log('onBluetoothDeviceFound res', res);
-        // if (!res.devices.name) {
-        //   return
-        // }
-        var devices = that.state.devices;
-        that.setState({
-          devices: devices.concat(res.devices)
+        res.devices.forEach(function (item) {
+          if (item.name || item.localName) {
+            var devices = that.state.devices;
+            that.setState({
+              devices: devices.concat(item)
+            });
+          }
         });
         // console.log('new device list has founded')
         // console.dir(devices)
         // console.log(ab2hex(devices[0].advertisData))
       });
-      // Taro.onBluetoothDeviceFound((res) => {
-      //   console.log('onBluetoothDeviceFound res', res);
-      //   that.setState({
-      //     devices: res.devices
-      //   })
-      //   // res.devices.forEach(device => {
-      //   //   if (!device.name && !device.localName) {
-      //   //     return
-      //   //   }
-      //   //   console.log('onBluetoothDeviceFound', device);
-      //   //
-      //   //   // this.devices.push(device);
-      //   // })
-      // })
     }
     /**
      * 获取搜索到的蓝牙设备列表
@@ -479,9 +487,6 @@ var Mine = (_temp2 = _class = function (_BaseComponent) {
       });
     }
   }, {
-    key: "treatAsSlaveDevice",
-    value: function treatAsSlaveDevice() {}
-  }, {
     key: "goToDetail",
     value: function goToDetail() {
       _taroWeapp2.default.navigateTo({
@@ -500,7 +505,7 @@ var Mine = (_temp2 = _class = function (_BaseComponent) {
       var myInfo = this.__props.myInfo;
 
 
-      var loopArray103 = this.__state.devices.map(function (item, index) {
+      var loopArray123 = this.__state.devices.map(function (item, index) {
         item = {
           $original: (0, _taroWeapp.internal_get_original)(item)
         };
@@ -514,7 +519,7 @@ var Mine = (_temp2 = _class = function (_BaseComponent) {
       });
 
       Object.assign(this.__state, {
-        loopArray103: loopArray103,
+        loopArray123: loopArray123,
         myInfo: myInfo
       });
       return this.__state;

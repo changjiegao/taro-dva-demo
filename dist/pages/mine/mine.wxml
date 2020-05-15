@@ -7,12 +7,12 @@
         <button bindtap="closeConnect">关闭蓝牙</button>
         <button bindtap="clearDevice">清除数据</button>
         <view>
-            <block wx:if="{{$taroCompReady}}" wx:for="{{loopArray103}}" wx:for-item="item" wx:for-index="index">
+            <block wx:if="{{$taroCompReady}}" wx:for="{{loopArray123}}" wx:for-item="item" wx:for-index="index">
                 <block wx:if="{{item.$loopState__temp2}}">
                     <view style="color: red">找到设备：第{{index}}个，deviceId为： {{item.$original.deviceId}}、设备名：{{item.$original.name}}、localName: {{item.$original.localName}}</view>
                 </block>
                 <block wx:else>
-                    <view>设备{{index}}: {{item.$original.deviceId}}、{{item.$original.name}}、localName: {{item.$original.localName}}</view>
+                    <view>设备{{index}}: \n\rdeviceId: {{item.$original.deviceId}}、name: \n\r{{item.$original.name}}、\n\rlocalName: {{item.$original.localName}}</view>
                 </block>
             </block>
         </view>
